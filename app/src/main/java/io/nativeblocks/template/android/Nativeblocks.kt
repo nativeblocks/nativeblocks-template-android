@@ -6,6 +6,7 @@ import io.nativeblocks.core.api.NativeblocksEdition
 import io.nativeblocks.core.api.NativeblocksManager
 import io.nativeblocks.core.api.provider.logger.INativeLogger
 import io.nativeblocks.foundation.FoundationProvider
+import io.nativeblocks.template.android.integration.consumer.action.MyAppActionProvider
 import io.nativeblocks.template.android.integration.consumer.block.MyAppBlockProvider
 import io.nativeblocks.wandkit.LiveKit
 
@@ -26,6 +27,7 @@ fun initNativeblocks(context: Context) {
     */
 
     MyAppBlockProvider.provideBlocks()
+    MyAppActionProvider.provideActions(alert = Alert(context))
 
     NativeblocksManager.getInstance().provideEventLogger("APP_LOGGER", AppLogger())
 }
