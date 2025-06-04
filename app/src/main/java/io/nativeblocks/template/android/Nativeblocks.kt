@@ -6,6 +6,7 @@ import io.nativeblocks.core.api.NativeblocksEdition
 import io.nativeblocks.core.api.NativeblocksManager
 import io.nativeblocks.core.api.provider.logger.INativeLogger
 import io.nativeblocks.foundation.FoundationProvider
+import io.nativeblocks.template.android.integration.consumer.block.MyAppBlockProvider
 import io.nativeblocks.wandkit.LiveKit
 
 fun initNativeblocks(context: Context) {
@@ -23,6 +24,8 @@ fun initNativeblocks(context: Context) {
     /* if you need localization
      NativeblocksManager.getInstance().setLocalization("EN")
     */
+
+    MyAppBlockProvider.provideBlocks()
 
     NativeblocksManager.getInstance().provideEventLogger("APP_LOGGER", AppLogger())
 }
