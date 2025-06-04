@@ -27,6 +27,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "NATIVEBLOCKS_API_URL", "\"${nativeblocksProps["apiUrl"] as String}\"")
+        buildConfigField("String", "NATIVEBLOCKS_API_KEY", "\"${nativeblocksProps["apiKey"] as String}\"")
     }
 
     buildTypes {
@@ -44,11 +47,12 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
 nativeblocks {
-    endpoint = nativeblocksProps["endpoint"] as String
+    endpoint = nativeblocksProps["apiUrl"] as String
     authToken = nativeblocksProps["authToken"] as String
     organizationId = nativeblocksProps["organizationId"] as String
     basePackageName = appId
