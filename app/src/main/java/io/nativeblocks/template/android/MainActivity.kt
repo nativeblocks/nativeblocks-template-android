@@ -4,44 +4,47 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import io.nativeblocks.template.android.ui.theme.NativeblockstemplateandroidTheme
+import androidx.lifecycle.lifecycleScope
+import io.nativeblocks.core.api.NativeblocksError
+import io.nativeblocks.core.api.NativeblocksFrame
+import io.nativeblocks.core.api.NativeblocksLoading
+import io.nativeblocks.core.api.NativeblocksManager
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent {
-            NativeblockstemplateandroidTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+        initNativeblocks(this)
+
+        lifecycleScope.launch {
+            val scaffoldResult = NativeblocksManager.getInstance().getScaffold()
+            if (scaffoldResult.isSuccess) {
+                // register routes
+                // val frameList = scaffoldResult.getOrNull()?.frames
+            }
+            if (scaffoldResult.isFailure) {
+                // show proper error message
+                // val errorMessage = scaffoldResult.exceptionOrNull()?.message
             }
         }
+
+        setContent {
+            NativeblocksFrame(
+                frameRoute = "/",
+                routeArguments = hashMapOf(),
+                loading = {
+                    NativeblocksLoading()
+                },
+                error = { message ->
+                    NativeblocksError(message)
+                },
+            )
+        }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NativeblockstemplateandroidTheme {
-        Greeting("Android")
+    override fun onDestroy() {
+        super.onDestroy()
+        destroyNativeblocks()
     }
 }
