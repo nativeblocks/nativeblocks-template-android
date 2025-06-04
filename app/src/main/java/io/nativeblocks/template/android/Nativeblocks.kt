@@ -20,6 +20,8 @@ fun initNativeblocks(context: Context) {
         )
     )
     FoundationProvider.provide()
+
+    /* to enable hot-reload and get live update in debug mode */
     NativeblocksManager.getInstance().wandKit(LiveKit())
 
     /* if you need localization
