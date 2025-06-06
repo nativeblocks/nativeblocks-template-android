@@ -52,7 +52,7 @@ android {
 }
 
 nativeblocks {
-    endpoint = nativeblocksProps["apiUrl"] as String
+    endpoint = nativeblocksProps["pluginUrl"] as String
     authToken = nativeblocksProps["authToken"] as String
     organizationId = nativeblocksProps["organizationId"] as String
     basePackageName = appId

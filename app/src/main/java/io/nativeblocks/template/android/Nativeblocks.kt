@@ -16,13 +16,15 @@ fun initNativeblocks(context: Context) {
         edition = NativeblocksEdition.Cloud(
             endpoint = BuildConfig.NATIVEBLOCKS_API_URL,
             apiKey = BuildConfig.NATIVEBLOCKS_API_KEY,
-            developmentMode = true
+            developmentMode = BuildConfig.DEBUG
         )
     )
     FoundationProvider.provide()
 
     /* to enable hot-reload and get live update in debug mode */
-    NativeblocksManager.getInstance().wandKit(LiveKit())
+    if (BuildConfig.DEBUG) {
+        NativeblocksManager.getInstance().wandKit(LiveKit())
+    }
 
     /* if you need localization
      NativeblocksManager.getInstance().setLocalization("EN")
