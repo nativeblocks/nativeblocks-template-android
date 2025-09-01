@@ -24,7 +24,7 @@ fun initNativeblocks(context: Context) {
 
     /* to enable hot-reload and get live update in debug mode */
     if (BuildConfig.DEBUG) {
-        NativeblocksManager.getInstance().wandKit(LiveKit())
+        NativeblocksManager.getInstance().wandKit(LiveKit(keepScreenOn = false, autoConnect = true))
     }
 
     /* if you need localization
