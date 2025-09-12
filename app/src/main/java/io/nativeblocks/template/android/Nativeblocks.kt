@@ -5,6 +5,7 @@ import android.util.Log
 import io.nativeblocks.core.api.NativeblocksEdition
 import io.nativeblocks.core.api.NativeblocksManager
 import io.nativeblocks.core.api.provider.logger.INativeLogger
+import io.nativeblocks.core.api.provider.logger.LoggerEventLevel
 import io.nativeblocks.foundation.FoundationProvider
 import io.nativeblocks.template.android.integration.consumer.action.MyAppActionProvider
 import io.nativeblocks.template.android.integration.consumer.block.MyAppBlockProvider
@@ -45,7 +46,33 @@ fun destroyNativeblocks() {
 }
 
 class AppLogger : INativeLogger {
-    override fun log(eventName: String, parameters: Map<String, String>) {
-        Log.d(eventName, "log: $parameters")
+    override fun log(
+        level: LoggerEventLevel,
+        event: String,
+        message: String,
+        parameters: Map<String, String>
+    ) {
+        val jsonBuilder = StringBuilder()
+        jsonBuilder.appendLine("{")
+        jsonBuilder.appendLine("  \"level\": \"${level.name}\",")
+        jsonBuilder.appendLine("  \"event\": \"${event}\",")
+        jsonBuilder.appendLine("  \"message\": \"${message.replace("\"", "\\\"")}\",")
+        jsonBuilder.appendLine("  \"parameters\": {")
+        val entries = parameters.entries.toList()
+        for (i in entries.indices) {
+            val entry = entries[i]
+            val comma = if (i != entries.size - 1) "," else ""
+            jsonBuilder.appendLine("    \"${entry.key}\": \"${entry.value.replace("\"", "\\\"")}\"$comma")
+        }
+        jsonBuilder.appendLine("  }")
+        jsonBuilder.appendLine("}")
+
+        val logTag = "NativeblocksLogger"
+        val logMsg = jsonBuilder.toString()
+        when (level) {
+            LoggerEventLevel.ERROR -> Log.e(logTag, logMsg)
+            LoggerEventLevel.WARNING -> Log.w(logTag, logMsg)
+            LoggerEventLevel.INFO -> Log.i(logTag, logMsg)
+        }
     }
 }
