@@ -13,7 +13,7 @@ import io.nativeblocks.core.api.NativeblocksFrame
 import io.nativeblocks.core.api.NativeblocksLoading
 import io.nativeblocks.core.frame.domain.model.NativeFrameRouteModel
 
-private const val STARTER_ROUTE = "/"
+private const val STARTER_ROUTE = "/welcome"
 
 @Composable
 fun NavigationGraph(routes: List<NativeFrameRouteModel>) {
@@ -39,7 +39,7 @@ private fun FrameScreen() {
     val currentRoute by Navigation.currentRoute.collectAsState()
     val currentRouteArguments by Navigation.currentRouteArguments.collectAsState()
     NativeblocksFrame(
-        frameRoute = currentRoute,
+        route = currentRoute,
         routeArguments = currentRouteArguments,
         loading = {
             NativeblocksLoading()

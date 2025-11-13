@@ -10,7 +10,7 @@ data class NavigationRoute(
 
 object Navigation {
 
-    private val _currentRoute = MutableStateFlow("/")
+    private val _currentRoute = MutableStateFlow("/welcome")
     val currentRoute: StateFlow<String> get() = _currentRoute
 
     private val _currentRouteArguments = MutableStateFlow<HashMap<String, String>>(hashMapOf())

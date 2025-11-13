@@ -10,10 +10,10 @@ activityCompose = "1.10.1"
 composeBom = "2025.06.00"
 materialNavigation = "1.8.2"
 ksp = "2.0.21-1.0.27"
-nativeblocksAndroid = "1.5.1"
+nativeblocksAndroid = "1.7.0"
 nativeblocksCompilerAndroid = "1.3.0"
 nativeblocksFoundationAndroid = "1.2.1"
-nativeblocksWandkitAndroid = "1.0.6"
+nativeblocksWandkitAndroid = "1.0.7"
 nativeblocksGradlePlung = "1.1.2"
 
 [libraries]
